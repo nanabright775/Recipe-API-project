@@ -55,7 +55,7 @@ class PivateTagApiTest(TestCase):
 
         res = self.client.get(TAGS_URL)
 
-        tags = Tag.objects.all().order_by('-name').reverse()
+        tags = Tag.objects.all().order_by('-name')
         serializer = TagSerializer(tags, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -102,6 +102,6 @@ class PivateTagApiTest(TestCase):
         tags = Tag.objects.filter(user=self.user)
         self.assertFalse(Tag.objects.filter(id=tag.id).exists())
 
-    
+
 
 

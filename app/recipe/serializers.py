@@ -94,7 +94,7 @@ class RecipeSerializers(serializers.ModelSerializer):
 class RecipeDetailSerializers(RecipeSerializers):
     """serializer for detail recipe view"""
     class Meta(RecipeSerializers.Meta):
-        fields = RecipeSerializers.Meta.fields + ['description']
+        fields = RecipeSerializers.Meta.fields + ['description', 'image']
 
     def update(self, instance, validated_data):
         tags_data = validated_data.pop('tags', [])
@@ -108,3 +108,10 @@ class RecipeDetailSerializers(RecipeSerializers):
 
         return instance
 
+class RecipeImageSerializer(serializers.ModelSerializer):
+    """serializer for uploading images to recipes"""
+    class Meta:
+        model = Recipe
+        fields =['id', 'image', ]
+        read_only_fields=['id']
+        extra_kwargs = {'image': {'required': 'True'}}
